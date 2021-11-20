@@ -1,0 +1,103 @@
+  <div id="entry-form-div">
+    <form action="/log_entry" method="POST" class="center" id="entry-form">
+        <div class="form-group row">
+          <label for="river" class="col-sm-2 col-form-label">River</label>
+          <div class="col-sm-10">
+            {{!-- THESE EVENTS SHOULD BE ADDED WITH JS, NOT HTML --}}
+            <input onkeyup="filterFunction()" type="text" class="form-control" name="river" id="myInput" placeholder="Example: MF Feather Devils Canyon">
+              <div id="myDropdown" class="dropdown-content">
+                {{#each river}}
+                  <option>{{this}}</option>
+                {{/each}}
+              </div>
+    
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="difficulty" class="col-sm-2 col-form-label">Difficulty</label>
+          <div class="col-sm-10">
+            <input type="number" step =".1" class="form-control" name="difficulty" placeholder="2.0-6.0">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="date" class="col-sm-2 col-form-label">Date</label>
+          <div class="col-sm-10">
+            <input type="date" class="form-control" name="date" placeholder="MM-DD-YYYY">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="flow" class="col-sm-2 col-form-label">Flow</label>
+          <div class="col-sm-10">
+            <input type="number" step=".1" class="form-control" name="flow">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="flowFeel" class="col-sm-2 col-form-label">Feel of Flow</label>
+          <div class="col-sm-10">
+              <select class="custom-select" id="flowFeel" name="flowFeel">
+                <option selected>medium</option>
+                <option value="too high">too high</option>
+                <option value="rictor high">rictor high, but runnable</option>
+                <option value="high">high</option>
+                <option value="medium">medium</option>
+                <option value="low">low</option>
+                <option value="lowest runnable flow">lowest runnable flow</option>
+                <option value="too low">too low</option>
+              </select>
+          </div>
+        </div>
+        <div class="optional-data">
+          
+          <div class="form-group row">
+            <label for="duration" class="col-sm-2 col-form-label">Duration</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="time">
+            </div>
+          </div>
+          
+          <div class="form-group row">
+            <label for="groupSize" class="col-sm-2 col-form-label">Group Size</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" name="groupSize">
+            </div>
+          </div>
+          
+          <div class="form-group row">
+            <label for="members" class="col-sm-2 col-form-label">Members</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="members" placeholder="The dream squad... long hair don't care">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea class="form-control" name="notes" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="accident">Accident Report</label>
+            <textarea class="form-control" name="accident" rows="3"></textarea>
+          </div>       
+        
+        
+        
+        
+        
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+          <button type="button" class="btn btn-secondary" id='optional-data-button'>Optional Data</button>
+            </div>
+          </div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+
+        {{!-- duration on the water --}}
+      </form>
+    </div>
+
+
+  

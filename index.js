@@ -45,18 +45,24 @@ app.get('/test', (req, res) => {
     res.send()
 })
 
-app.post('/log_entry', (req, res) => {
-    let entry = {
+app.post('/log_entry', async (req, res) => {
+    let document = {
         // TODO convert these to the correct data types
-        difficulty:Number.parseFloat(req.body.difficulty).toFixed(1),
-        river:req.body.river,
-        date:new Date(req.body.date),
-        flow:Number(req.body.flow),
-        flowFeel:req.body.flowFeel
+        difficulty: Number.parseFloat(req.body.difficulty).toFixed(1),
+        river: req.body.river,
+        date: Date(req.body.date),
+        flow: Number(req.body.flow),
+        flowFeel: req.body.flowFeel,
+        time: req.body.time,
+        groupSize: req.body.groupSize ? Number(req.body.groupSize):'',
+        members: req.body.members,
+        notes: req.body.notes,
+        accident: req.body.accident
     }
     // insert(client, entry)
     console.log(req.body)
-    console.log(entry)
+    console.log(document)
+    await db.collection('journal_entries').insertOne(document)
     res.send('You successfully submitted the file')
 })
 

@@ -8,7 +8,9 @@
 - [x] export the database connection from a separate module to declutter the index.js file
 - [ ] authenticate users!
 - [ ] add rating to optional log entry form
-- [ ] add a timestamp to each journal entry
+- [x] add a timestamp to each journal entry
+- [ ] insert the document into the db in the log_entry post route 
+- [ ] format time input correctly for ducment upload to db
 ### Trust
 
 badges for people - 

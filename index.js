@@ -50,7 +50,7 @@ app.post('/log_entry', async (req, res) => {
         // TODO convert these to the correct data types
         difficulty: Number.parseFloat(req.body.difficulty).toFixed(1),
         river: req.body.river,
-        date: Date(req.body.date),
+        date: new Date(req.body.date),
         flow: Number(req.body.flow),
         flowFeel: req.body.flowFeel,
         time: req.body.time,
@@ -60,7 +60,9 @@ app.post('/log_entry', async (req, res) => {
         accident: req.body.accident
     }
     // insert(client, entry)
+    console.log("Request Body")
     console.log(req.body)
+    console.log("Document")
     console.log(document)
     await db.collection('journal_entries').insertOne(document)
     res.send('You successfully submitted the file')

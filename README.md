@@ -10,7 +10,9 @@
 - [ ] add rating to optional log entry form
 - [x] add a timestamp to each journal entry
 - [ ] insert the document into the db in the log_entry post route 
-- [ ] format time input correctly for ducment upload to db
+- [x] format time input correctly for ducment upload to db
+
+
 ### Trust
 
 badges for people - 

@@ -1,4 +1,8 @@
 
+// Add todays date to the form
+todaysDate = new Date().toISOString().split('T')[0]
+$("[name=date]").val(todaysDate)
+
 $(document).ready(() =>{
     $("#optional-data-button").click( (e) => {
         console.log('options button was clicked')

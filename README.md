@@ -1,13 +1,17 @@
 # TODO
 - [x] remove all references the the db connection string 
-- [ ] add remote repo after all references to db connection are gone
+- [x] add remote repo after all references to db connection are gone
 - [ ] Make a page for after the submit button is clicked. 
 - [x] populate the dropdown form river input with rivers from the database?
 - [x] Add optional stuff to DB upload
 - [x] create an add a river page
-- [ ] export the database connection from a seperate module to declutter the index.js file
+- [x] export the database connection from a separate module to declutter the index.js file
 - [ ] authenticate users!
 - [ ] add rating to optional log entry form
+- [x] add a timestamp to each journal entry
+- [ ] insert the document into the db in the log_entry post route 
+- [x] format time input correctly for ducment upload to db
+
 
 ### Trust
 

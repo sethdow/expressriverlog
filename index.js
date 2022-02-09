@@ -5,21 +5,8 @@ const exphbs = require('express-handlebars');
 // MongoClient from the mongodb module 
 // https://stackoverflow.com/questions/25187903/what-do-curly-braces-around-javascript-variable-name-mean
 const { MongoClient } = require('mongodb');
+const mongoUtil = require(__dirname + '/db/mongoUtil.js')
 var path = require('path');
-
-const uri = process.env.ATLAS_URI
-const client = new MongoClient(uri,{ 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-});
-client.connect((err,db) => {
-    if (err || !db) {
-      console.log(err);
-    }
-    dbConnection = db.db("river_journal");
-    console.log("Successfully connected to MongoDB.")
-})
-
 const app = express()
 app.engine('handlebars', exphbs())
 app.set('view engine', 'handlebars')
@@ -32,7 +19,7 @@ app.get(['/','/home'], (req, res) => {
 
 app.get('/log_entry', async (req, res) => {
     
-   const results = await dbConnection.collection('rivers')
+   const results = await db.collection('rivers')
   .find({})
   .project({river:1, _id:0})
   .toArray()
@@ -58,19 +45,27 @@ app.get('/test', (req, res) => {
     res.send()
 })
 
-app.post('/log_entry', (req, res) => {
-    let entry = {
+app.post('/log_entry', async (req, res) => {
+    let document = {
         // TODO convert these to the correct data types
-        difficulty:Number.parseFloat(req.body.difficulty).toFixed(1),
-        river:req.body.river,
-        date:new Date(req.body.date),
-        flow:Number(req.body.flow),
-        flowFeel:req.body.flowFeel
+        difficulty: Number.parseFloat(req.body.difficulty).toFixed(1),
+        river: req.body.river,
+        date: new Date(req.body.date),
+        flow: Number(req.body.flow),
+        flowFeel: req.body.flowFeel,
+        time: req.body.time,
+        groupSize: req.body.groupSize ? Number(req.body.groupSize):'',
+        members: req.body.members,
+        notes: req.body.notes,
+        accident: req.body.accident
     }
     // insert(client, entry)
+    console.log("Request Body")
     console.log(req.body)
-    console.log(entry)
-    res.send('You successfully submitted the file')
+    console.log("Document")
+    console.log(document)
+    await db.collection('journal_entries').insertOne(document)
+    res.render('successful_submission', { view: 'log_entry'})
 })
 
 app.post('/river_entry', async (req, res) => {
@@ -89,16 +84,17 @@ app.post('/river_entry', async (req, res) => {
         dateAdded:Date.now()
     }
     // insert(client, entry)
-    await dbConnection.collection('rivers').insertOne(document)
+    await db.collection('rivers').insertOne(document)
     res.send('You successfully submitted the entry')
 })
 
-
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Server started on specified port')
-}) 
-
-
+mongoUtil.connectToServer(function (err,client) {
+    if (err) console.log(err)
+    db = mongoUtil.getDb()
+    app.listen(process.env.PORT || 3000, () => {
+        console.log('Server started on specified port')
+    }) 
+})
 
 async function insert(client, document) {
     /**

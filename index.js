@@ -65,7 +65,7 @@ app.post('/log_entry', async (req, res) => {
     console.log("Document")
     console.log(document)
     await db.collection('journal_entries').insertOne(document)
-    res.send('You successfully submitted the file')
+    res.render('successful_submission', { view: 'log_entry'})
 })
 
 app.post('/river_entry', async (req, res) => {
